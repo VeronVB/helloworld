@@ -18,9 +18,9 @@ file_put_contents($counterFile, $visits);
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Strona główna srv3k.pl">
+    <meta name="description" content="Strona główna">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>srv3k.pl - Strona Główna</title>
+    <title>twoja-domena.pl - Strona Główna</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
@@ -77,7 +77,7 @@ file_put_contents($counterFile, $visits);
                         <span class="icon-bar" style="background-color: white;"></span>
                         <span class="icon-bar" style="background-color: white;"></span>
                     </button>
-                    <a class="navbar-brand" href="/">srv3k.pl</a>
+                    <a class="navbar-brand" href="/">twoja-domena.pl</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">

@@ -1,0 +1,28 @@
+services:
+  helloworld:
+    image: veronvb/helloworld:latest
+    container_name: helloworld
+    restart: unless-stopped
+    networks:
+      - proxy
+    volumes:
+      # Montujemy konfigurację Nginxa (plik site.conf, który podałem wcześniej)
+      # Uwaga: bezpieczniej montować do conf.d niż nadpisywać cały katalog /etc/nginx
+      - ./nginx/conf.d:/etc/nginx/conf.d/
+      # Montujemy pliki strony do standardowego katalogu
+      - ./www/data:/www/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+      # === ROUTER ===
+      - "traefik.http.routers.helloworld.rule=Host(`twojadomena.pl`)"
+      - "traefik.http.routers.helloworld.entrypoints=websecure"
+      - "traefik.http.routers.helloworld.tls.certresolver=letsencrypt"
+      # === MIDDLEWARE ===
+      # Zakomentuj linię poniżej, jeśli strona ma być publiczna:
+      #- "traefik.http.routers.helloworld.middlewares=authelia@file"
+      # === SERWIS ===
+      - "traefik.http.services.helloworld.loadbalancer.server.port=80"
+networks:
+  proxy:
+    external: true

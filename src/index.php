@@ -100,7 +100,7 @@ file_put_contents($counterFile, $visits);
     <footer class="footer">
         <div class="container">
             <p>
-                &copy; 2025 srv3k.pl &nbsp;|&nbsp; 
+                &copy; 2025 twoja-domena.pl &nbsp;|&nbsp; 
                 Odwiedziny: <span id="visits"><?php echo $visits; ?></span> &nbsp;|&nbsp; 
                 Czas: <span id="clock">...</span>
             </p>

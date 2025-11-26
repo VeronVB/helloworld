@@ -15,11 +15,12 @@ file_put_contents($counterFile, $visits);
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="Michał Nowak">
     <meta name="description" content="Strona główna">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <title>twoja-domena.pl - Strona Główna</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">

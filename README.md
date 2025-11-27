@@ -26,7 +26,16 @@ Docker CLI
 
 Uruchomienie kontenera:
 
-  docker run -d -p 8080:80 --name my-website veronvb/helloworld:latest
+<pre id="bkmrk-%C2%A0-services%3A-%C2%A0-%C2%A0-web%3A-1"><code class="language-yaml">&nbsp; services:
+&nbsp; &nbsp; web:
+&nbsp; &nbsp; &nbsp; image: veronvb/helloworld:latest
+&nbsp; &nbsp; &nbsp; restart: unless-stopped
+&nbsp; &nbsp; &nbsp; ports:
+&nbsp; &nbsp; &nbsp; &nbsp; - "80:80"
+&nbsp; &nbsp; &nbsp; volumes:
+&nbsp; &nbsp; &nbsp; &nbsp; # Montujemy tylko plik licznika, reszta kodu zostaje z obrazu
+&nbsp; &nbsp; &nbsp; &nbsp; # Uwaga: plik licznik.txt musi istnieć na hoście (może być pusty)
+&nbsp; &nbsp; &nbsp; &nbsp; - ./data/licznik.txt:/www/licznik.txt</code></pre>
 
 Twoja strona będzie dostępna pod adresem: http://localhost:8080
 

@@ -26,16 +26,9 @@ Docker CLI
 
 Uruchomienie kontenera:
 
-<pre id="bkmrk-%C2%A0-services%3A-%C2%A0-%C2%A0-web%3A-1"><code class="language-yaml">&nbsp; services:
-&nbsp; &nbsp; web:
-&nbsp; &nbsp; &nbsp; image: veronvb/helloworld:latest
-&nbsp; &nbsp; &nbsp; restart: unless-stopped
-&nbsp; &nbsp; &nbsp; ports:
-&nbsp; &nbsp; &nbsp; &nbsp; - "80:80"
-&nbsp; &nbsp; &nbsp; volumes:
-&nbsp; &nbsp; &nbsp; &nbsp; # Montujemy tylko plik licznika, reszta kodu zostaje z obrazu
-&nbsp; &nbsp; &nbsp; &nbsp; # Uwaga: plik licznik.txt musi istnieć na hoście (może być pusty)
-&nbsp; &nbsp; &nbsp; &nbsp; - ./data/licznik.txt:/www/licznik.txt</code></pre>
+<p id="bkmrk-%C2%A0"></p>
+<pre id="bkmrk-docker-run--d--p-808"><code class="language-bash">docker run -d -p 8080:80 --name my-website veronvb/helloworld:latest</code></pre>
+<p id="bkmrk-%C2%A0-1"></p>
 
 Twoja strona będzie dostępna pod adresem: http://localhost:8080
 
@@ -51,28 +44,28 @@ Opcja A: Developement (Chcę edytować kod na żywo)
 
 Podmontuj swój lokalny folder z kodem do kontenera:
 
-  services:
-    web:
-      image: veronvb/helloworld:latest
-      ports:
-        - "80:80"
-      volumes:
-        - ./src:/www # Twój lokalny kod zastąpi ten w obrazie
+<pre id="bkmrk-%C2%A0-services%3A-%C2%A0-%C2%A0-web%3A"><code class="language-yaml">&nbsp; services:
+&nbsp; &nbsp; web:
+&nbsp; &nbsp; &nbsp; image: veronvb/helloworld:latest
+&nbsp; &nbsp; &nbsp; ports:
+&nbsp; &nbsp; &nbsp; &nbsp; - "80:80"
+&nbsp; &nbsp; &nbsp; volumes:
+&nbsp; &nbsp; &nbsp; &nbsp; - ./src:/www # Tw&oacute;j lokalny kod zastąpi ten w obrazie</code></pre>
         
 Opcja B: Produkcja (Kod jest w obrazie, chcę zachować tylko licznik/dane)
 
 Jeśli kod jest "wypieczony" w obrazie, montuj tylko konkretne pliki danych lub podkatalogi, aby nie ukryć kodu aplikacji:
 
-  services:
-    web:
-      image: veronvb/helloworld:latest
-      restart: unless-stopped
-      ports:
-        - "80:80"
-      volumes:
-        # Montujemy tylko plik licznika, reszta kodu zostaje z obrazu
-        # Uwaga: plik licznik.txt musi istnieć na hoście (może być pusty)
-        - ./data/licznik.txt:/www/licznik.txt
+<pre id="bkmrk-%C2%A0-services%3A-%C2%A0-%C2%A0-web%3A-1"><code class="language-yaml">&nbsp; services:
+&nbsp; &nbsp; web:
+&nbsp; &nbsp; &nbsp; image: veronvb/helloworld:latest
+&nbsp; &nbsp; &nbsp; restart: unless-stopped
+&nbsp; &nbsp; &nbsp; ports:
+&nbsp; &nbsp; &nbsp; &nbsp; - "80:80"
+&nbsp; &nbsp; &nbsp; volumes:
+&nbsp; &nbsp; &nbsp; &nbsp; # Montujemy tylko plik licznika, reszta kodu zostaje z obrazu
+&nbsp; &nbsp; &nbsp; &nbsp; # Uwaga: plik licznik.txt musi istnieć na hoście (może być pusty)
+&nbsp; &nbsp; &nbsp; &nbsp; - ./data/licznik.txt:/www/licznik.txt</code></pre>
 
 ⚙️ Zaawansowane
 

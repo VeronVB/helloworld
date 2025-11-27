@@ -1,48 +1,48 @@
 🚀 Ultra-Light Nginx + PHP-FPM (Alpine)
 
-Minimalistyczny, zoptymalizowany obraz Docker łączący Nginx oraz PHP-FPM 8.3 w jednym kontenerze. Zbudowany na bazie Alpine Linux.
+A minimalist, optimized Docker image combining Nginx and PHP-FPM 8.3 in a single container. Built on Alpine Linux.
 
-Zaprojektowany z myślą o maksymalnej wydajności i minimalnym rozmiarze. Idealny do prostych stron, wizytówek i mikroserwisów PHP.
+Designed for maximum performance and minimum size. Ideal for simple websites, landing pages, and PHP microservices.
 
-✨ Kluczowe cechy
+✨ Key Features
 
-    Ultra-lekki: Rozmiar obrazu zredukowany do minimum (~20-30MB).
+    Ultra-light: Image size reduced to the minimum (~20-30MB).
 
-    Single-Container Architecture: Nginx i PHP działają w jednym kontenerze bez ciężkiego supervisord. Procesami zarządza lekki, customowy entrypoint.sh.
+    Single-Container Architecture: Nginx and PHP run in one container without a heavy supervisord. Processes are managed by a lightweight, custom entrypoint.sh.
 
-    Smart Permissions: Skrypt startowy automatycznie naprawia uprawnienia (chown/chmod) rekursywnie dla całego katalogu /www. Ułatwia to pracę z PHP, które od razu ma prawo zapisu w katalogu głównym.
+    Smart Permissions: The startup script automatically fixes permissions (chown/chmod) recursively for the entire /www directory. This simplifies PHP workflows, granting immediate write access to the web root.
 
-    Docker Friendly Logs: Logi Nginx i PHP są przekierowane do stdout/stderr.
+    Docker Friendly Logs: Nginx and PHP logs are redirected to stdout/stderr.
 
-    Security: Nginx działa jako non-root user.
+    Security: Nginx runs as a non-root user.
 
-📦 Struktura katalogów
+📦 Directory Structure
 
-    /www - Główny katalog aplikacji (web root). To tutaj ląduje Twój kod. Użytkownik nginx posiada pełne prawa zapisu w tym katalogu.
+    /www - Main application directory (web root). Your code goes here. The nginx user has full write permissions in this directory.
 
-🚀 Szybki start
+🚀 Quick Start
 
 Docker CLI
 
-Uruchomienie kontenera:
+Run the container:
 
 <p id="bkmrk-%C2%A0"></p>
 <pre id="bkmrk-docker-run--d--p-808"><code class="language-bash">docker run -d -p 8080:80 --name my-website veronvb/helloworld:latest</code></pre>
 <p id="bkmrk-%C2%A0-1"></p>
 
-Twoja strona będzie dostępna pod adresem: http://localhost:8080
+Your website will be available at: http://localhost:8080
 
 Docker Compose
 
-Poniżej przykład konfiguracji.
+Below is a configuration example.
 
-⚠️ WAŻNE: Ponieważ obraz zawiera już kod aplikacji w /www, podmontowanie całego folderu z hosta (./data:/www) przykryje pliki znajdujące się w obrazie.
+⚠️ IMPORTANT: Since the image already contains application code in /www, mounting a host folder (e.g., ./data:/www) will overwrite/hide the files located in the image.
 
-Zalecane podejście zależy od Twojego celu:
+The recommended approach depends on your goal:
 
-Opcja A: Developement (Chcę edytować kod na żywo)
+Option A: Development (I want to edit code live)
 
-Podmontuj swój lokalny folder z kodem do kontenera:
+Mount your local code directory to the container:
 
 <pre id="bkmrk-%C2%A0-services%3A-%C2%A0-%C2%A0-web%3A"><code class="language-yaml">&nbsp; services:
 &nbsp; &nbsp; web:
@@ -50,11 +50,11 @@ Podmontuj swój lokalny folder z kodem do kontenera:
 &nbsp; &nbsp; &nbsp; ports:
 &nbsp; &nbsp; &nbsp; &nbsp; - "80:80"
 &nbsp; &nbsp; &nbsp; volumes:
-&nbsp; &nbsp; &nbsp; &nbsp; - ./src:/www # Tw&oacute;j lokalny kod zastąpi ten w obrazie</code></pre>
+&nbsp; &nbsp; &nbsp; &nbsp; - ./src:/www # # Your local code replaces the one in the image </code></pre>
         
-Opcja B: Produkcja (Kod jest w obrazie, chcę zachować tylko licznik/dane)
+Option B: Production (Code is baked into the image, I only want to persist counter/data)
 
-Jeśli kod jest "wypieczony" w obrazie, montuj tylko konkretne pliki danych lub podkatalogi, aby nie ukryć kodu aplikacji:
+If the code is "baked" into the image, mount only specific data files or subdirectories to avoid hiding the application code:
 
 <pre id="bkmrk-%C2%A0-services%3A-%C2%A0-%C2%A0-web%3A-1"><code class="language-yaml">&nbsp; services:
 &nbsp; &nbsp; web:
@@ -63,16 +63,16 @@ Jeśli kod jest "wypieczony" w obrazie, montuj tylko konkretne pliki danych lub 
 &nbsp; &nbsp; &nbsp; ports:
 &nbsp; &nbsp; &nbsp; &nbsp; - "80:80"
 &nbsp; &nbsp; &nbsp; volumes:
-&nbsp; &nbsp; &nbsp; &nbsp; # Montujemy tylko plik licznika, reszta kodu zostaje z obrazu
-&nbsp; &nbsp; &nbsp; &nbsp; # Uwaga: plik licznik.txt musi istnieć na hoście (może być pusty)
+&nbsp; &nbsp; &nbsp; &nbsp; # We mount only the counter file, the rest of the code remains from the image
+&nbsp; &nbsp; &nbsp; &nbsp; # Note: the file licznik.txt must exist on the host (can be empty)
 &nbsp; &nbsp; &nbsp; &nbsp; - ./data/licznik.txt:/www/licznik.txt</code></pre>
 
-⚙️ Zaawansowane
+⚙️ Advanced
 
-Entrypoint i Sygnały
+Entrypoint and Signals
 
-Obraz wykorzystuje komendę exec do uruchomienia procesu Nginx. Oznacza to, że kontener poprawnie obsługuje sygnały systemowe (np. SIGTERM, SIGINT), co pozwala na szybkie i bezpieczne zatrzymywanie kontenera.
+The image uses the exec command to start the Nginx process. This means the container correctly handles system signals (e.g., SIGTERM, SIGINT), allowing for quick and graceful container stops.
 
-Konfiguracja PHP
+PHP Configuration
 
-PHP-FPM nasłuchuje na 127.0.0.1:9000 i działa jako użytkownik nginx. Logi błędów PHP trafiają na standardowe wyjście błędów (stderr).
+PHP-FPM listens on 127.0.0.1:9000 and runs as the nginx user. PHP error logs are sent to the standard error output (stderr).

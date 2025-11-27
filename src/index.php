@@ -1,27 +1,27 @@
 <?php
-// --- LOGIKA LICZNIKA (SERVER-SIDE) ---
-$counterFile = 'licznik.txt';
+// --- COUNTER LOGIC (SERVER-SIDE) ---
+$counterFile = 'counter.txt';
 
-// Jeśli plik nie istnieje, utwórz go z wartością 0
+// If the file does not exist, create it with a value of 0
 if (!file_exists($counterFile)) {
     file_put_contents($counterFile, 0);
 }
 
-// Pobierz obecną liczbę, zwiększ i zapisz
+// Get the current number, increment, and save
 $visits = (int)file_get_contents($counterFile);
 $visits++;
 file_put_contents($counterFile, $visits);
 ?>
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="author" content="Michał Nowak">
-    <meta name="description" content="Strona główna">
+    <meta name="description" content="Home page">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <title>twoja-domena.pl - Strona Główna</title>
+    <title>your-domain.com - Home Page</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
@@ -73,18 +73,18 @@ file_put_contents($counterFile, $visits);
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-                        <span class="sr-only">Nawigacja</span>
+                        <span class="sr-only">Navigation</span>
                         <span class="icon-bar" style="background-color: white;"></span>
                         <span class="icon-bar" style="background-color: white;"></span>
                         <span class="icon-bar" style="background-color: white;"></span>
                     </button>
-                    <a class="navbar-brand" href="/">twoja-domena.pl</a>
+                    <a class="navbar-brand" href="/">your-domain.com</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="/">Strona Główna</a></li>
-                        <li><a href="#omnie">O mnie</a></li>
-                        <li><a href="#kontakt">Kontakt</a></li>
+                        <li class="active"><a href="/">Home</a></li>
+                        <li><a href="#omnie">About me</a></li>
+                        <li><a href="#kontakt">Contact</a></li>
                     </ul>
                 </div>
             </div>
@@ -92,8 +92,8 @@ file_put_contents($counterFile, $visits);
 
         <div class="container theme-showcase" role="main">
             <div class="jumbotron">
-                <h1>Witaj</h1>
-                <p>Czy to mnie szukasz?</p>
+                <h1>Welcome</h1>
+                <p>Is it me you're looking for?</p>
             </div>
         </div> 
     </div>
@@ -101,9 +101,9 @@ file_put_contents($counterFile, $visits);
     <footer class="footer">
         <div class="container">
             <p>
-                &copy; 2025 twoja-domena.pl &nbsp;|&nbsp; 
-                Odwiedziny: <span id="visits"><?php echo $visits; ?></span> &nbsp;|&nbsp; 
-                Czas: <span id="clock">...</span>
+                &copy; 2025 your-domain.com &nbsp;|&nbsp; 
+                Visits: <span id="visits"><?php echo $visits; ?></span> &nbsp;|&nbsp; 
+                Time: <span id="clock">...</span>
             </p>
         </div>
     </footer>

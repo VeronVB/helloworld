@@ -6,22 +6,22 @@ services:
     networks:
       - proxy
     volumes:
-      # Montujemy konfigurację Nginxa (plik site.conf, który podałem wcześniej)
-      # Uwaga: bezpieczniej montować do conf.d niż nadpisywać cały katalog /etc/nginx
+      # Mount the Nginx configuration (the site.conf file provided earlier)
+      # Note: It is safer to mount to conf.d rather than overwriting the entire /etc/nginx directory
       - ./nginx/conf.d:/etc/nginx/conf.d/
-      # Montujemy pliki strony do standardowego katalogu
+      # Mount website files to the standard directory
       - ./www/data:/www/data
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=proxy"
       # === ROUTER ===
-      - "traefik.http.routers.helloworld.rule=Host(`twojadomena.pl`)"
+      - "traefik.http.routers.helloworld.rule=Host(`yourdomain.com`)"
       - "traefik.http.routers.helloworld.entrypoints=websecure"
       - "traefik.http.routers.helloworld.tls.certresolver=letsencrypt"
       # === MIDDLEWARE ===
-      # Zakomentuj linię poniżej, jeśli strona ma być publiczna:
+      # Comment out the line below if the site should be public:
       #- "traefik.http.routers.helloworld.middlewares=authelia@file"
-      # === SERWIS ===
+      # === SERVICE ===
       - "traefik.http.services.helloworld.loadbalancer.server.port=80"
 networks:
   proxy:
